@@ -35,7 +35,7 @@ export interface MiddlewareConfig {
    */
   globalMiddlewareEnabled?: boolean
   /**
-   * Enables/disables automatic registration of '/auth/login' and '/auth/logout' route rules
+   * Enables/disables automatic registration of '/oidc/login' and '/oidc/logout' route rules
    * @default false
    */
   customLoginPage?: boolean

@@ -1,11 +1,11 @@
-import type { OidcProviderConfig } from './runtime/server/utils/provider'
-import type { AuthSessionConfig, DevModeConfig, MiddlewareConfig, ProviderConfigs, ProviderKeys } from './runtime/types'
 import { extendServerRpc, onDevToolsInitialized } from '@nuxt/devtools-kit'
 import { addImportsDir, addPlugin, addRouteMiddleware, addServerHandler, addServerPlugin, createResolver, defineNuxtModule, extendRouteRules, useLogger } from '@nuxt/kit'
 import { defu } from 'defu'
 import { setupDevToolsUI } from './devtools'
 import * as providerPresets from './runtime/providers'
 import { generateProviderUrl, replaceInjectedParameters } from './runtime/server/utils/config'
+import type { OidcProviderConfig } from './runtime/server/utils/provider'
+import type { AuthSessionConfig, DevModeConfig, MiddlewareConfig, ProviderConfigs, ProviderKeys } from './runtime/types'
 
 const RPC_NAMESPACE = 'nuxt-oidc-auth-rpc'
 
@@ -87,19 +87,19 @@ export default defineNuxtModule<ModuleOptions>({
     // Add server handlers for session management
     addServerHandler({
       handler: resolve('./runtime/server/api/session.delete'),
-      route: '/api/_auth/session',
+      route: '/api/_oidc/session',
       method: 'delete',
     })
 
     addServerHandler({
       handler: resolve('./runtime/server/api/session.get'),
-      route: '/api/_auth/session',
+      route: '/api/_oidc/session',
       method: 'get',
     })
 
     addServerHandler({
       handler: resolve('./runtime/server/api/refresh.post'),
-      route: '/api/_auth/refresh',
+      route: '/api/_oidc/refresh',
       method: 'post',
     })
 
@@ -111,15 +111,15 @@ export default defineNuxtModule<ModuleOptions>({
 
     // Add default provider routes
     if (process.env.NODE_ENV && !process.env.NODE_ENV.toLowerCase().startsWith('prod') && options.devMode?.enabled) {
-      extendRouteRules('/auth/login', {
+      extendRouteRules('/oidc/login', {
         redirect: {
-          to: '/auth/dev/login',
+          to: '/oidc/dev/login',
           statusCode: 302,
         },
       })
-      extendRouteRules('/auth/logout', {
+      extendRouteRules('/oidc/logout', {
         redirect: {
-          to: `/auth/dev/logout`,
+          to: `/oidc/dev/logout`,
           statusCode: 302,
         },
       })
@@ -127,16 +127,16 @@ export default defineNuxtModule<ModuleOptions>({
     else {
       if (options.defaultProvider) {
         if (!options.middleware.customLoginPage) {
-          extendRouteRules('/auth/login', {
+          extendRouteRules('/oidc/login', {
             redirect: {
-              to: `/auth/${options.defaultProvider}/login`,
+              to: `/oidc/${options.defaultProvider}/login`,
               statusCode: 302,
             },
           })
         }
-        extendRouteRules('/auth/logout', {
+        extendRouteRules('/oidc/logout', {
           redirect: {
-            to: `/auth/${options.defaultProvider}/logout`,
+            to: `/oidc/${options.defaultProvider}/logout`,
             statusCode: 302,
           },
         })
@@ -147,12 +147,12 @@ export default defineNuxtModule<ModuleOptions>({
     if (process.env.NODE_ENV && !process.env.NODE_ENV.toLowerCase().startsWith('prod') && options.devMode?.enabled) {
       addServerHandler({
         handler: resolve('./runtime/server/handler/dev'),
-        route: '/auth/dev/login',
+        route: '/oidc/dev/login',
         method: 'get',
       })
       addServerHandler({
         handler: resolve('./runtime/server/handler/logout.get'),
-        route: '/auth/dev/logout',
+        route: '/oidc/dev/logout',
         method: 'get',
       })
     }
@@ -184,25 +184,25 @@ export default defineNuxtModule<ModuleOptions>({
       // Add login handler
       addServerHandler({
         handler: resolve('./runtime/server/handler/login.get'),
-        route: `/auth/${provider}/login`,
+        route: `/oidc/${provider}/login`,
         method: 'get',
       })
       // Add callback handler
       addServerHandler({
         handler: resolve('./runtime/server/handler/callback'),
-        route: `/auth/${provider}/callback`,
+        route: `/oidc/${provider}/callback`,
         method: 'get',
       })
       // Add callback handler for hybrid flows
       addServerHandler({
         handler: resolve('./runtime/server/handler/callback'),
-        route: `/auth/${provider}/callback`,
+        route: `/oidc/${provider}/callback`,
         method: 'post',
       })
       // Add logout handler
       addServerHandler({
         handler: resolve('./runtime/server/handler/logout.get'),
-        route: `/auth/${provider}/logout`,
+        route: `/oidc/${provider}/logout`,
         method: 'get',
       })
     })

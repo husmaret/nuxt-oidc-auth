@@ -1,5 +1,5 @@
-import { fileURLToPath } from 'node:url'
 import { $fetch, setup } from '@nuxt/test-utils/e2e'
+import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 
 describe('ssr', async () => {
@@ -14,7 +14,7 @@ describe('ssr', async () => {
   })
 
   it('mounts the configured auth providers', async () => {
-    const html = await $fetch('/auth/github/login')
+    const html = await $fetch('/oidc/github/login')
     expect(html).toBeDefined()
   })
 })

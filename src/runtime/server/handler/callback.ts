@@ -1,13 +1,13 @@
 import type { H3Event } from 'h3'
-import type { OAuthConfig, PersistentSession, ProviderKeys, TokenRequest, TokenRespose, Tokens, UserSession } from '../../types'
-import type { OidcProviderConfig } from '../utils/provider'
 import { deleteCookie, eventHandler, getQuery, getRequestURL, readBody, sendRedirect } from 'h3'
 import { ofetch } from 'ofetch'
 import { normalizeURL, parseURL } from 'ufo'
 import * as providerPresets from '../../providers'
+import type { OAuthConfig, PersistentSession, ProviderKeys, TokenRequest, TokenRespose, Tokens, UserSession } from '../../types'
 import { validateConfig } from '../utils/config'
 import { configMerger, convertObjectToSnakeCase, convertTokenRequestToType, oidcErrorHandler, useOidcLogger } from '../utils/oidc'
-import { encryptToken, type JwtPayload, parseJwtToken, validateToken } from '../utils/security'
+import type { OidcProviderConfig } from '../utils/provider'
+import { encryptToken, parseJwtToken, validateToken, type JwtPayload } from '../utils/security'
 import { getUserSessionId, setUserSession, useAuthSession } from '../utils/session'
 // @ts-expect-error - Missing Nitro type exports in Nuxt
 import { useRuntimeConfig, useStorage } from '#imports'
@@ -34,7 +34,7 @@ function callbackEventHandler({ onSuccess }: OAuthConfig<UserSession>) {
     // Check for admin consent callback
     if (admin_consent) {
       const url = getRequestURL(event)
-      sendRedirect(event, url.origin + parsePath(`/auth/${provider}/login`), 200)
+      sendRedirect(event, url.origin + parsePath(`/oidc/${provider}/login`), 200)
     }
 
     // Verify id_token, if available (hybrid flow)

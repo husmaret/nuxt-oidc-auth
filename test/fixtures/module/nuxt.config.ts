@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     defaultProvider: 'github',
     providers: {
       github: {
-        redirectUri: 'http://localhost:3000/auth/github/callback',
+        redirectUri: 'http://localhost:3000/oidc/github/callback',
         clientId: 'CLIENT_ID',
         clientSecret: 'CLIENT_SECRET',
         filterUserInfo: ['login', 'id', 'avatar_url', 'name', 'email'],

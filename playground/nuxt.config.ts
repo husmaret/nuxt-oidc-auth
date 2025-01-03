@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     defaultProvider: 'github',
     providers: {
       entra: {
-        redirectUri: 'http://localhost:3000/auth/entra/callback',
+        redirectUri: 'http://localhost:3000/oidc/entra/callback',
         clientId: '',
         clientSecret: '',
         authorizationUrl: 'https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/authorize',
@@ -40,7 +40,7 @@ export default defineNuxtConfig({
       auth0: {
         audience: 'test-api-oidc',
         responseType: 'code',
-        redirectUri: 'http://localhost:3000/auth/auth0/callback',
+        redirectUri: 'http://localhost:3000/oidc/auth0/callback',
         baseUrl: '',
         clientId: '',
         clientSecret: '',
@@ -53,7 +53,7 @@ export default defineNuxtConfig({
         },
       },
       github: {
-        redirectUri: 'http://localhost:3000/auth/github/callback',
+        redirectUri: 'http://localhost:3000/oidc/github/callback',
         clientId: '',
         clientSecret: '',
         filterUserInfo: ['login', 'id', 'avatar_url', 'name', 'email'],
@@ -63,13 +63,13 @@ export default defineNuxtConfig({
         baseUrl: '',
         clientId: '',
         clientSecret: '',
-        redirectUri: 'http://localhost:3000/auth/keycloak/callback',
+        redirectUri: 'http://localhost:3000/oidc/keycloak/callback',
         userNameClaim: 'preferred_username',
         logoutRedirectUri: 'http://localhost:3000',
       },
       cognito: {
         clientId: '',
-        redirectUri: 'http://localhost:3000/auth/cognito/callback',
+        redirectUri: 'http://localhost:3000/oidc/cognito/callback',
         clientSecret: '',
         scope: ['openid', 'email', 'profile'],
         logoutRedirectUri: 'https://google.com',
@@ -79,7 +79,7 @@ export default defineNuxtConfig({
       zitadel: {
         clientId: '',
         clientSecret: '', // Works with PKCE and Code flow, just leave empty for PKCE
-        redirectUri: 'http://localhost:3000/auth/zitadel/callback',
+        redirectUri: 'http://localhost:3000/oidc/zitadel/callback',
         baseUrl: '',
         audience: '', // Specify for id token validation, normally same as clientId
         logoutRedirectUri: 'https://google.com', // Needs to be registered in Zitadel portal
@@ -92,12 +92,12 @@ export default defineNuxtConfig({
         authorizationUrl: 'https://www.sandbox.paypal.com/signin/authorize?flowEntry=static',
         tokenUrl: 'https://api-m.sandbox.paypal.com/v1/oauth2/token',
         userInfoUrl: 'https://api-m.sandbox.paypal.com/v1/identity/openidconnect/userinfo?schema=openid',
-        redirectUri: 'http://127.0.0.1:3000/auth/paypal/callback',
+        redirectUri: 'http://127.0.0.1:3000/oidc/paypal/callback',
       },
       microsoft: {
         clientId: '',
         clientSecret: '',
-        redirectUri: 'http://localhost:3000/auth/microsoft/callback',
+        redirectUri: 'http://localhost:3000/oidc/microsoft/callback',
       },
     },
     session: {

@@ -1,11 +1,11 @@
-import type { H3Event, SessionConfig } from 'h3'
-import type { AuthSession, AuthSessionConfig, PersistentSession, ProviderKeys, ProviderSessionConfig, UserSession } from '../../types'
-import type { OidcProviderConfig } from './provider'
 import { defu } from 'defu'
+import type { H3Event, SessionConfig } from 'h3'
 import { createError, deleteCookie, sendRedirect, useSession } from 'h3'
 import { createHooks } from 'hookable'
 import * as providerPresets from '../../providers'
+import type { AuthSession, AuthSessionConfig, PersistentSession, ProviderKeys, ProviderSessionConfig, UserSession } from '../../types'
 import { configMerger, refreshAccessToken, useOidcLogger } from './oidc'
+import type { OidcProviderConfig } from './provider'
 import { decryptToken, encryptToken } from './security'
 // @ts-expect-error - Missing Nitro type exports in Nuxt
 import { useRuntimeConfig, useStorage } from '#imports'
@@ -88,7 +88,7 @@ export async function refreshUserSession(event: H3Event) {
   }
   catch (error) {
     logger.error(error)
-    return sendRedirect(event, parsePath(`/auth/${provider}/logout`))
+    return sendRedirect(event, parsePath(`/oidc/${provider}/logout`))
   }
 
   const { user, tokens, expiresIn, parsedAccessToken } = tokenRefreshResponse

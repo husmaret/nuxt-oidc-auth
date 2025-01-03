@@ -1,7 +1,7 @@
 import type { ComputedRef, Ref } from '#imports'
-import type { ProviderKeys, UserSession } from '../types'
 import { computed, navigateTo, useRequestFetch, useState } from '#imports'
 import { parsePath } from '../server/utils/path'
+import type { ProviderKeys, UserSession } from '../types'
 
 const useSessionState = () => useState<UserSession>('nuxt-oidc-auth-session', undefined)
 
@@ -14,7 +14,7 @@ export function useOidcAuth() {
   const currentProvider: ComputedRef<ProviderKeys | undefined | 'dev'> = computed(() => sessionState.value?.provider || undefined)
 
   async function fetch() {
-    useSessionState().value = (await useRequestFetch()(parsePath('/api/_auth/session'), {
+    useSessionState().value = (await useRequestFetch()(parsePath('/api/_oidc/session'), {
       headers: {
         Accept: 'text/json',
       },
@@ -27,7 +27,7 @@ export function useOidcAuth() {
    * @returns {Promise<void>}
    */
   async function refresh(): Promise<void> {
-    useSessionState().value = (await useRequestFetch()(parsePath('/api/_auth/refresh'), {
+    useSessionState().value = (await useRequestFetch()(parsePath('/api/_oidc/refresh'), {
       headers: {
         Accept: 'text/json',
       },
@@ -62,7 +62,7 @@ export function useOidcAuth() {
    * Clears the current user session. Mainly for debugging, in production, always use the `logout` function, which completely cleans the state.
    */
   async function clear() {
-    await useRequestFetch()(parsePath('/api/_auth/session'), {
+    await useRequestFetch()(parsePath('/api/_oidc/session'), {
       method: 'DELETE',
       headers: {
         Accept: 'text/json',
