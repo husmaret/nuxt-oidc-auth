@@ -34,11 +34,11 @@ onDevtoolsClientConnected(async (client: NuxtDevtoolsIframeClient) => {
 })
 
 async function login(provider?: string) {
-  clientWindow.value.navigate(`/auth${provider ? `/${provider}` : ''}/login`, true)
+  clientWindow.value.navigate(`/oidc${provider ? `/${provider}` : ''}/login`, true)
 }
 
 async function logout(provider?: string) {
-  clientWindow.value.navigate(`/auth${provider ? `/${provider}` : ''}/logout`, true)
+  clientWindow.value.navigate(`/oidc${provider ? `/${provider}` : ''}/logout`, true)
 }
 </script>
 

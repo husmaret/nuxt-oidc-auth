@@ -44,7 +44,7 @@ export function useOidcAuth() {
    */
   async function login(provider?: ProviderKeys | 'dev', params?: Record<string, string>): Promise<void> {
     const queryParams = params ? `?${new URLSearchParams(params).toString()}` : ''
-    await navigateTo(parsePath(`/auth${provider ? `/${provider}` : ''}/login${queryParams}`), { external: true, redirectCode: 302 })
+    await navigateTo(parsePath(`/oidc${provider ? `/${provider}` : ''}/login${queryParams}`), { external: true, redirectCode: 302 })
   }
 
   /**
@@ -55,7 +55,7 @@ export function useOidcAuth() {
    * @returns {Promise<void>}
    */
   async function logout(provider?: ProviderKeys | 'dev', logoutRedirectUri?: string): Promise<void> {
-    await navigateTo(parsePath(`/auth${provider ? `/${provider}` : currentProvider.value ? `/${currentProvider.value}` : ''}/logout${logoutRedirectUri ? `?logout_redirect_uri=${logoutRedirectUri}` : ''}`), { external: true, redirectCode: 302 })
+    await navigateTo(parsePath(`/oidc${provider ? `/${provider}` : currentProvider.value ? `/${currentProvider.value}` : ''}/logout${logoutRedirectUri ? `?logout_redirect_uri=${logoutRedirectUri}` : ''}`), { external: true, redirectCode: 302 })
   }
 
   /**

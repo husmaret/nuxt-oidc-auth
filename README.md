@@ -21,7 +21,7 @@ This module doesn't use any external dependencies outside of the [unjs](https://
 ⚙️&nbsp; Presets for popular OIDC providers<br>
 📤&nbsp; Global middleware with automatic redirection to default provider or a custom login page (see playground)<br>
 👤&nbsp; `useOidcAuth` composable for getting the user information, logging in and out, refetching the current session and triggering a token refresh<br>
-🗂️&nbsp; Multi provider support with auto registered routes (`/auth/<provider>/login`, `/auth/<provider>/logout`, `/auth/<provider>/callback`)<br>
+🗂️&nbsp; Multi provider support with auto registered routes (`/oidc/<provider>/login`, `/oidc/<provider>/logout`, `/oidc/<provider>/callback`)<br>
 📝&nbsp; Generic spec OpenID compatible connect provider with fully configurable OIDC flow (state, nonce, PKCE, token request, ...)<br>
 🕙&nbsp; Session expiration check<br>
 
