@@ -1,0 +1,13 @@
+{
+  "name": "nuxt-oidc-auth",
+  "configKey": "oidc",
+  "compatibility": {
+    "nuxt": ">=3.9.0",
+    "bridge": false
+  },
+  "version": "1.0.0-beta.2",
+  "builder": {
+    "@nuxt/module-builder": "0.8.4",
+    "unbuild": "2.0.0"
+  }
+}
